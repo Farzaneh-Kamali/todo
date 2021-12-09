@@ -25,10 +25,17 @@ export const App = () => {
     [todoItems]
   );
 
+  const handleDelete = useCallback(
+    (todoItem: ItemType) => {
+      setTodoItems(todoItems.filter((item) => item !== todoItem));
+    },
+    [todoItems]
+  );
+
   return (
     <div>
       {todoItems.map((todoItem) => (
-        <TodoItem todoItem={todoItem} key= {todoItem.id}/>
+        <TodoItem todoItem={todoItem} DeleteItem={handleDelete} key= {todoItem.id}/>
       ))}
 
       <hr />
