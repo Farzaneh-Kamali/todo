@@ -1,27 +1,39 @@
-import React from 'react';
-import { ItemType, TodoItem } from './component/item';
-
+import React, { useCallback, useState } from "react";
+import { ItemType, TodoItem } from "./component/TodoItem";
+import { AddItem } from "./component/AddItems";
 
 const initialItems: ItemType[] = [
-  { text: 'Go to GYM'},
-  { text: 'Study for exam' },
-  { text: 'Do React task' },
-  { text: 'Have lunch'},
+  { id: Math.floor(Math.random() * 1000), text: "Go to GYM" },
+  { id: Math.floor(Math.random() * 1000), text: "Study for exam" },
+  { id: Math.floor(Math.random() * 1000), text: "Do React task" },
+  { id: Math.floor(Math.random() * 1000), text: "Have lunch" },
 ];
 
 export const App = () => {
+  const [todoItems, setTodoItems] = useState(initialItems);
+
+  const handleAdd = useCallback(
+    (newText: string) => {
+      if (!newText || /^\s*$/.test(newText)) {
+        return;
+      }
+      setTodoItems([
+        ...todoItems,
+        { id: Math.floor(Math.random() * 1000), text: newText },
+      ]);
+    },
+    [todoItems]
+  );
 
   return (
     <div>
-
-      {initialItems.map((todoItem) => (
-        <TodoItem
-          todoItem={todoItem}
-        />
+      {todoItems.map((todoItem) => (
+        <TodoItem todoItem={todoItem} key= {todoItem.id}/>
       ))}
 
+      <hr />
+
+      <AddItem AddToDo={handleAdd} />
     </div>
   );
-}
-
-
+};

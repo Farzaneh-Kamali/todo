@@ -1,10 +1,11 @@
 import React from "react";
 
 export interface ItemType {
+  id:number;
   text: string;
 }
 
-export interface TodoItemProps {
+interface TodoItemProps {
   todoItem: ItemType;
 }
 
